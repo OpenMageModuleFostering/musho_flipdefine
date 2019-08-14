@@ -1,0 +1,176 @@
+<?php
+//print_r($_product = $this->getProduct());
+    $_product = $this->getProduct();
+	if(!$_product->getId()){
+		echo "No valid product was found with this ID !";
+	
+	}else{
+    $_helper = $this->helper('catalog/output');
+?>
+
+<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+
+	 <div class="psz-imagesWrapper singleImage" style="display:inline-block; padding-right:20px;">
+		<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+		<p class="product-image product-image-zoom">
+			<?php
+				$_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
+				echo $_helper->productAttribute($_product, $_img, 'image');
+			?>
+		</p>
+		<?php endif; ?>
+		<span class="clears"></span>
+	</div>
+
+	
+	<div class="psz-productInfo" style="display:inline-block;">
+		<?php // Get the product name here?>     
+		
+			<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+		
+
+		<fieldset class="no-display">
+		  <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+		  <input type="hidden" name="related_product" id="related-products-field" value="" />
+		</fieldset>
+
+		<?php //Product Add to Cart button here?>   
+				 
+		<?php if($_product->isSaleable()): ?>
+			<div class="add-to-cart">
+				<?php $buttonTitle = $this->__('Add to Cart'); ?>
+				<label for="qty"><?php echo $this->__('Qty:') ?></label>
+				<input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getMinimalQty($_product) ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+			  
+				<button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+			
+			</div>
+		<?php endif; ?>
+
+		<?php //Product Description  here?>    
+		<div>
+			 <?php if ($_product->getPrice()):?>
+				<h4><?php echo $this->__('Price') ?></h4>
+				<div class="Text-2"><?php echo $_helper->productAttribute($_product, nl2br($_product->getPrice()), 'price') ?></div>
+			 <?php endif;?>
+
+			 <?php if ($_product->getSpecialPrice()):?>
+				<h4><?php echo $this->__('Special Price') ?></h4>
+				<div class="Text-2"><?php echo $_helper->productAttribute($_product, nl2br($_product->getPrice()), 'special_price') ?></div>
+			 <?php endif;?>
+			 
+			 <?php if ($_product->getShortDescription()):?>
+				<h4><?php echo $this->__('Quick Overview') ?></h4>
+				<div class="Text-2"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+			 <?php endif;?>
+			 
+			 <?php if ($_product->getDescription()):?>
+				<h4><?php echo $this->__('Detail Description') ?></h4>
+				<div class="Text-2"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
+			 <?php endif;?>
+			 
+			<?php if ($_product->getProductUrl()):?>
+				<span>or <a id="psz-fullDetails" target="_blank" href="<?php echo $_helper->productAttribute($_product, nl2br($_product->getProductUrl()), 'product_url')?>">View Full Product Details</a></span>
+			 <?php endif;?>
+			 
+			
+		</div>       
+       <span class="clears"></span>
+	 
+	<?php  
+		}
+
+	?>
+	
+	 </div>
+</form>
+<div style="clear:both"></div>
+<div class="block-cart" style="clear:both">
+
+ 
+</div>
+
+
+ <div id="ajax-cart-modal" class="ajax-cart-modal" style="display: none;">
+    <div class="overlay"></div>
+    <div class="block">
+        <div class="block-title">
+            <strong>
+                <!--span id="ajax-cart-modal-title">Message</span-->
+                <a class="close-btn" href="javascript:$('ajax-cart-modal').hide();">Continue Shopping</a>
+				
+				<a id="goto-checkout" href="<? echo Mage::getUrl('checkout/cart/'); ?>" class="Blinks">Check Out</a> 
+				
+            </strong>
+        </div>
+        <div class="block-content">
+            <p class="block-subtitle" id="ajax-cart-modal-message">What is your favorite Magento feature?</p>
+            <div class="actions">
+                <button type="button" onclick="$('ajax-cart-modal').hide()" title="Vote" class="button">
+                    <span><span>OK</span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ajax-cart-loading-mask" class="ajax-cart-loading-mask" style="display: none;">
+    <div class="overlay"></div>
+    <div class="loader"></div>
+</div>  
+
+	
+
+    <script type="text/javascript">
+    //<![CDATA[
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function(button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                   form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        productAddToCartForm.submitLight = function(button, url){
+            if(this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(productAddToCartForm);
+    //]]>
+    </script>
+	
+	

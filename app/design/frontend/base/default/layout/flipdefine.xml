@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+
+  
+     <default>
+			<reference name="root">
+				<action method="setTemplate"><template>page/empty.phtml</template></action>
+			</reference>
+			<reference name="content">
+			</reference>
+      </default>
+      <flipdefine_index_index>	
+		<reference name="head">
+			 <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addJs"><script>lib/ccard.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>scriptaculous/builder.js</script></action>
+                <action method="addJs"><script>scriptaculous/effects.js</script></action>
+                <action method="addJs"><script>scriptaculous/dragdrop.js</script></action>
+                <action method="addJs"><script>scriptaculous/controls.js</script></action>
+                <action method="addJs"><script>scriptaculous/slider.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+                <action method="addJs"><script>varien/form.js</script></action>
+                <action method="addJs"><script>varien/menu.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>mage/cookies.js</script></action>
+            <action method="addJs"><script>varien/product.js</script></action>
+            <action method="addJs"><script>varien/configurable.js</script></action>
+			<action method="addJs"><script>js/jquery-2.0.3.js</script></action>
+			<action method="addJs"><script>jquery/noconflict.js</script></action>
+			
+			<action method="addCss"><style>css/ajax_cart.css</style></action>
+			<!--action method="addJs"><script>js/easy_ajax.js</script></action>
+			<action method="addJs"><script>js/ajax_cart.js</script></action-->
+			
+			<action method="addItem"><type>skin_js</type><script>js/easy_ajax.js</script></action>
+			<action method="addItem"><type>skin_js</type><script>js/ajax_cart.js</script></action>
+			
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+			
+			<!--action method="addItem"><type>skin_js</type><script>scriptname.js</script></action-->
+        </reference>
+		
+		 <reference name="content">
+			<block type="flipdefine/monblock"  name="afficher_monbloc" template="flipdefine/afficher.phtml">
+				<block type="flipdefine/product_view" name="product.info" template="flipdefine/product/view.phtml">
+               
+                <block type="flipdefine/product_view_media" name="product.info.media" as="media" template="flipdefine/product/view/media.phtml"/>
+                <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label">
+                    <label>Alert Urls</label>
+                </block>
+
+                <action method="setTierPriceTemplate"><template>flipdefine/product/view/tierprices.phtml</template></action>
+
+                <block type="flipdefine/product_list_upsell" name="product.info.upsell" as="upsell_products" template="flipdefine/product/list/upsell.phtml">
+                    <action method="setColumnCount"><columns>4</columns></action>
+                    <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
+                </block>
+
+                <block type="flipdefine/product_view_additional" name="product.info.additional" as="product_additional_data" />
+                <block type="flipdefine/product_view_description" name="product.description" as="description" template="flipdefine/product/view/description.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                </block>
+                <block type="flipdefine/product_view_attributes" name="product.attributes" as="additional" template="flipdefine/product/view/attributes.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                </block>
+                <block type="flipdefine/product_view" name="product.info.addto" as="addto" template="flipdefine/product/view/addto.phtml"/>
+                <block type="flipdefine/product_view" name="product.info.addtocart" as="addtocart" template="flipdefine/product/view/addtocart.phtml"/>
+
+                <block type="core/text_list" name="product.info.extrahint" as="extrahint" translate="label">
+                    <label>Product View Extra Hint</label>
+                </block>
+            </block>
+				<block type="flipdefine/product_list_related" name="flipdefine.product.related" before="-" template="flipdefine/product/list/related.phtml"/>
+			</block>
+       </reference>
+      </flipdefine_index_index>
+	  
+	  
+	  <flipdefine_index_products>
+			<reference name="head">
+		<action method="removeItem"><type>js</type><name>prototype/prototype.js</name></action>
+                <action method="removeItem"><type>js</type><name>lib/ccard.js</name></action>
+                <action method="removeItem"><type>js</type><name>prototype/validation.js</name></action>
+                <action method="removeItem"><type>js</type><name>scriptaculous/builder.js</name></action>
+                <action method="removeItem"><type>js</type><name>scriptaculous/effects.js</name></action>
+                <action method="removeItem"><type>js</type><name>scriptaculous/dragdrop.js</name></action>
+                <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
+                <action method="removeItem"><type>js</type><name>scriptaculous/slider.js</name></action>
+                <action method="removeItem"><type>js</type><name>varien/js.js</name></action>
+                <action method="removeItem"><type>js</type><name>varien/form.js</name></action>
+                <action method="removeItem"><type>js</type><name>varien/menu.js</name></action>
+                <action method="removeItem"><type>js</type><name>mage/translate.js</name></action>
+                <action method="removeItem"><type>js</type><name>mage/cookies.js</name></action>
+            <action method="removeItem"><type>js</type><name>varien/product.js</name></action>
+            <action method="removeItem"><type>js</type><name>varien/configurable.js</name></action>
+			<action method="removeItem"><type>js</type><name>js/jquery-2.0.3.js</name></action>
+			<action method="removeItem"><type>js</type><name>jquery/noconflict.js</name></action>
+			<action method="removeItem"><type>skin_css</type><style>css/ajax_cart.css</style></action>
+			<action method="removeItem"><type>skin_css</type><style>css/print.css</style></action>
+			<action method="removeItem"><type>skin_css</type><style>css/webandpeople/custommenu/custommenu.css</style></action>
+			<action method="removeItem"><type>skin_css</type><style>css/local.css</style></action>
+			<action method="removeItem"><type>js</type><name>easy_ajax.js</name></action>
+			<action method="removeItem"><type>js</type><name>js/ddaccordion.js</name></action>
+			
+			<action method="removeItem"><type>js</type><name>js/ajax_cart.js</name></action>
+            <action method="removeItem"><type>js_</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="removeItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="removeItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+			</reference>
+			<reference name="content">
+				<block type="flipdefine/products" name="flipdefine.products" template="flipdefine/products.phtml"/>
+			</reference>
+	  </flipdefine_index_products>	
+	  
+	  <flipdefine_index_view>
+			<reference name="content">
+			</reference>
+	  </flipdefine_index_view>	
+</layout>

@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+  <config>
+     <modules>
+        <Musho_Flipdefine>
+          <version>1.0.0</version>
+        </Musho_Flipdefine>
+     </modules>
+	 
+     <frontend>
+       <routers>
+          <flipdefine>
+              <use>standard</use>
+              <args>
+                 <module>Musho_Flipdefine</module>
+                 <frontName>flipdefine</frontName>
+              </args>
+           </flipdefine>
+       </routers>
+	   <layout>
+		<updates>
+			<Musho_Flipdefine>
+				<file>flipdefine.xml</file>
+			</Musho_Flipdefine>
+		</updates>
+	   </layout>
+    </frontend>
+	
+	<admin>
+		 <routers>
+			 <flipdefine>
+				<use>admin</use>
+				<args>
+				   <module>Musho_Flipdefine</module>
+				   <frontName>adminflipdefine</frontName>
+				</args>
+			 </flipdefine>
+		  </routers>
+	 </admin>
+	 <adminhtml>
+	   <layout>
+		  <updates>
+			  <flipdefine>
+				  <file>flipdefine.xml</file>
+			   </flipdefine>
+		  </updates>
+	   </layout>
+	   <menu>
+		  <flipdefine translate="title" module="adminhtml">
+			 <title>My plugins</title>
+			 <sort_order>100</sort_order>
+			 <children>
+				 <set_time>
+					   <title>Adress book</title>
+					   <action>adminflipdefine/adminhtml_index</action>
+				  </set_time>
+			  </children>
+		   </flipdefine>
+		</menu>
+	</adminhtml>
+	
+	<global>
+		<models>
+			<flipdefine>
+				 <class>Musho_Flipdefine_Model</class>
+				 <resourceModel>flipdefine_mysql4</resourceModel>
+			 </flipdefine>
+			<flipdefine_mysql4>
+				 <class>Musho_Flipdefine_Model_Mysql4</class>
+				 <entities>
+					 <flipdefine>
+					   <table>Musho_flipdefine</table>
+					 </flipdefine>
+				  </entities>
+			</flipdefine_mysql4>
+		</models>
+				<!-- allow the plugin to read and write -->
+		<resources>
+				<!-- connection to write -->
+				<flipdefine_write>
+					<connection>
+						<use>core_write</use>
+					</connection>
+				</flipdefine_write>
+				<!-- connection to read -->
+			   <flipdefine_read>
+				  <connection>
+					 <use>core_read</use>
+				  </connection>
+			   </flipdefine_read>
+		</resources>
+		 <blocks>
+			 <flipdefine>
+				  <class>Musho_Flipdefine_Block</class>
+			 </flipdefine>
+		  </blocks>
+	</global>
+	 
+</config>
