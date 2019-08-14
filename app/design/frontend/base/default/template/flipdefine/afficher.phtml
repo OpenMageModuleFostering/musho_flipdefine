@@ -1,3 +1,5 @@
+<div id="plugin"> 
+
 <?php
     $_product = $this->getProduct();
 	if(!$_product->getId()){
@@ -7,11 +9,16 @@
     $_helper = $this->helper('catalog/output');
 	
 ?>
+<div id="pluginHeader">
+	<h1 class="productName"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+	<h1 class="storeName"><?php echo Mage::app()->getStore()->getName(); ?> </h1>
+</div>
 
 <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
 
-	 <div class="psz-imagesWrapper singleImage" style="display:inline-block;">
-		<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+	 <div class="psz-imagesWrapper singleImage">
+		<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>	
+		
 		<div class="product-image product-image-zoom">
 			<?php
 				$_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
@@ -24,10 +31,7 @@
 
 	
 	<div class="psz-productInfo" style="display:inline-block;">
-		<?php // Get the product name here?>     
-		
-			<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-		
+		<?php // Get the product name here?>   
 
 		<fieldset class="no-display">
 		  <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
@@ -35,42 +39,37 @@
 		</fieldset>
 
 		<?php //Product Add to Cart button here?>   
-				 
+		<?php if ($_product->getPrice()):?>
+				<div class="pluginPrice">
+					<?php echo Mage::helper('core')->currency($_product->getPrice()); ?>
+				</div>
+			 <?php endif;?>
+			 
 		<?php if($_product->isSaleable()): ?>
 			<div class="add-to-cart">
 				<?php $buttonTitle = $this->__('Add to Cart'); ?>
-				<label for="qty"><?php echo $this->__('Qty:') ?></label>
-				<input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getMinimalQty($_product) ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
-			  
-				<button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+				
+				<button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)">
+						<?php echo $buttonTitle ?>
+				</button>
 			
 			</div>
 		<?php endif; ?>
 
 		<?php //Product Description  here?>    
 		<div>
-			 <?php if ($_product->getPrice()):?>
-				<h4><?php echo $this->__('Price') ?></h4>
-				<div class="Text-2"><?php echo $_helper->productAttribute($_product, nl2br($_product->getPrice()), 'price') ?></div>
-			 <?php endif;?>
-
-			 <?php if ($_product->getSpecialPrice()):?>
-				<h4><?php echo $this->__('Special Price') ?></h4>
-				<div class="Text-2"><?php echo $_helper->productAttribute($_product, nl2br($_product->getPrice()), 'special_price') ?></div>
-			 <?php endif;?>
-			 
 			 <?php if ($_product->getShortDescription()):?>
 				<h4><?php echo $this->__('Quick Overview') ?></h4>
-				<div class="Text-2"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+				<div class="pluginInfo"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
 			 <?php endif;?>
 			 
 			 <?php if ($_product->getDescription()):?>
 				<h4><?php echo $this->__('Detail Description') ?></h4>
-				<div class="Text-2"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
+				<div class="pluginInfo"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
 			 <?php endif;?>
 			 
 			<?php if ($_product->getProductUrl()):?>
-				<span>or <a id="psz-fullDetails" target="_blank" href="<?php echo $_helper->productAttribute($_product, nl2br($_product->getProductUrl()), 'product_url')?>">View Full Product Details</a></span>
+				<span><a class="pluginInfo" target="_blank" href="<?php echo $_helper->productAttribute($_product, nl2br($_product->getProductUrl()), 'product_url')?>">View Full Product Details</a></span>
 			 <?php endif;?>
 			 
 			
@@ -86,10 +85,9 @@
 </form>
 <div style="clear:both"></div>
 
-<div class="block-cart" style="clear:both">
+<!--div class="block-cart" style="clear:both">
 
- 
-</div>
+</div-->
 
 
  <div id="ajax-cart-modal" class="ajax-cart-modal" style="display: none;">
@@ -120,7 +118,10 @@
     <div class="loader"></div>
 </div>  
 
+	<div id="recommend">
 	
+	</div>
+</div>
 
     <script type="text/javascript">
     //<![CDATA[
@@ -173,5 +174,4 @@
         }.bind(productAddToCartForm);
     //]]>
     </script>
-	
 	

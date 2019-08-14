@@ -19,7 +19,20 @@
 <layout version="0.1.0">
     <default>
         <reference name="head">
-            <action method="addJs"><name>easy_ajax.js</name></action>
+            <action method="addCss">
+				<style>css/jquery.jqzoom.css</style>
+			</action>
+			<action method="addJs">
+				<name>easy_ajax.js</name>
+			</action>
+			<action method="addJs">
+				<script>js/jquery-2.0.3.js</script>
+			</action>
+			<action method="addJs">
+				<script>js/jquery.jqzoom-core.js</script>
+			</action>
+			
         </reference>
+		
     </default>
 </layout>
