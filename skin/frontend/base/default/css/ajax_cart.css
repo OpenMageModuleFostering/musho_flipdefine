@@ -114,10 +114,8 @@ ul{
 }
 
 .psz-imagesWrapper {
-	float:left;
-	margin-right:20px;
+		margin-right:20px;
         text-align: center;
-        width:290px;
         position: relative;
 }
 
@@ -198,7 +196,7 @@ ul{
 }
 
 .psz-productInfo{
-	float: left;
+	
 	clear: right;
 	width: 290px;
 }

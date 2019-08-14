@@ -9,7 +9,7 @@
 				//($product->load($product->getId())->getData('name'));
 				//die(print_r($product->getData()));
 			}
-			return json_encode($result);
+			die('<div id="Mage_Extension">' . json_encode($result) . '</div>');
 		}
 		
 		public function getAllCategories(){

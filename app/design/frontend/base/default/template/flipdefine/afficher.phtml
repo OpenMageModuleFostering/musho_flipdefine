@@ -1,23 +1,23 @@
 <?php
-//print_r($_product = $this->getProduct());
     $_product = $this->getProduct();
 	if(!$_product->getId()){
 		echo "No valid product was found with this ID !";
 	
 	}else{
     $_helper = $this->helper('catalog/output');
+	
 ?>
 
 <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
 
-	 <div class="psz-imagesWrapper singleImage" style="display:inline-block; padding-right:20px;">
+	 <div class="psz-imagesWrapper singleImage" style="display:inline-block;">
 		<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
-		<p class="product-image product-image-zoom">
+		<div class="product-image product-image-zoom">
 			<?php
 				$_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
 				echo $_helper->productAttribute($_product, $_img, 'image');
 			?>
-		</p>
+		</div>
 		<?php endif; ?>
 		<span class="clears"></span>
 	</div>
@@ -85,6 +85,7 @@
 	 </div>
 </form>
 <div style="clear:both"></div>
+
 <div class="block-cart" style="clear:both">
 
  
@@ -104,7 +105,7 @@
             </strong>
         </div>
         <div class="block-content">
-            <p class="block-subtitle" id="ajax-cart-modal-message">What is your favorite Magento feature?</p>
+            <div class="block-subtitle" id="ajax-cart-modal-message">What is your favorite Flipdefine feature?</div>
             <div class="actions">
                 <button type="button" onclick="$('ajax-cart-modal').hide()" title="Vote" class="button">
                     <span><span>OK</span></span>

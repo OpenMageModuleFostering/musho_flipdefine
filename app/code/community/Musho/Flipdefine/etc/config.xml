@@ -2,10 +2,20 @@
   <config>
      <modules>
         <Musho_Flipdefine>
-          <version>1.0.0</version>
+          <version>1.0.1</version>
         </Musho_Flipdefine>
      </modules>
-	 
+	   <global>
+			<page>
+				<layouts>
+					<Musho_Flipdefine module="page" translate="label">
+						<label>My Layout</label>
+						<template>page/mylayout.phtml</template>
+						<layout_handle>my_layout</layout_handle>
+					</Musho_Flipdefine>
+				</layouts>
+			</page>
+		</global>
      <frontend>
        <routers>
           <flipdefine>
