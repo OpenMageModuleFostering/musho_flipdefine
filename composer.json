@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Musho_Flipdefine",
+    "name": "OpenMageModuleFostering\/Musho_Flipdefine",
     "type": "magento-module",
     "license": "AFPL",
     "homepage": "",
     "description": "This extension enables clients integrate Flipdefine flipbook with Magento Webbsites.",
     "authors": [
-    {
-        "name": "joel tan",
-        "email": "joel.tcy@gmail.com"
-    }
-],
+        {
+            "name": "joel tan",
+            "email": "joel.tcy@gmail.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
